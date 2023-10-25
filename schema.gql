@@ -1,0 +1,125 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  createAt: DateTime!
+  id: ID!
+  name: String!
+  product: [Product!]!
+  updateAt: DateTime!
+}
+
+input CreateCategoryDto {
+  name: String!
+}
+
+input CreatePostDto {
+  author: Int
+  content: String!
+  title: String!
+}
+
+input CreateProductDto {
+  description: String!
+  name: String!
+  price: Float!
+}
+
+input CreateShopDto {
+  address: String!
+  name: String!
+  type: String!
+}
+
+input CreateUserDto {
+  email: String!
+  name: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createCategory(createCategory: CreateCategoryDto!): Category!
+  createPost(authorId: Float!, createPost: CreatePostDto!): Posts!
+  createProduct(categoryId: Float!, createProduct: CreateProductDto!): Product!
+  createShop(createShop: CreateShopDto!): Shop!
+  createUser(createUser: CreateUserDto!): User!
+  remove(id: ID!): Float!
+  removeCategory(id: ID!): Float!
+  removeProduct(id: ID!): Float!
+  removeShop(id: ID!): Float!
+  updateCategory(id: Float!, updateCategory: UpdateCategoryDto!): Category!
+  updateProduct(id: Float!, updateProduct: UpdateProductDto!): Product!
+  updateShop(id: Float!, updateShop: UpdateShopDto!): Shop!
+  updateUser(id: Float!, updateUser: UpdateUserDto!): User!
+}
+
+type Posts {
+  author: User!
+  content: String!
+  id: ID!
+  title: String!
+}
+
+type Product {
+  category: Category!
+  createAt: DateTime!
+  description: String!
+  id: ID!
+  name: String!
+  price: Float!
+  updateAt: DateTime!
+}
+
+type Query {
+  findAllCategoyr: [Category!]!
+  findAllPosts: [Posts!]!
+  findAllProduct: [Product!]!
+  findAllShop: [Shop!]!
+  findOneCategory(id: Float!): Category!
+  findOneProduct(id: Float!): Product!
+  findOneShop(id: Float!): Shop!
+  findOneUser(id: Float!): User!
+  getAllUsers: [User!]!
+}
+
+type Shop {
+  address: String!
+  id: ID!
+  name: String!
+  type: String!
+}
+
+input UpdateCategoryDto {
+  name: String
+}
+
+input UpdateProductDto {
+  description: String
+  name: String
+  price: Float
+}
+
+input UpdateShopDto {
+  address: String
+  name: String
+  type: String
+}
+
+input UpdateUserDto {
+  email: String
+  name: String
+}
+
+type User {
+  createAt: DateTime!
+  email: String!
+  id: ID!
+  name: String
+  posts: [Posts!]!
+  updateAt: DateTime!
+}

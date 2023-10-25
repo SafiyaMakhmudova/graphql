@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres-db
+    image: postgres:14.0-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=${TYPEORM_USERNAME}
+      - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+      - POSTGRES_DB=${TYPEORM_DATABASE}
+    volumes: 
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - ${TYPEORM_LOCAL_PORT}:${TYPEORM_PORT}
+  app:
+    container_name: nest-graphql
+    build:
+      context: ./
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    ports:
+      - ${API_LOCAL_PORT}:${PORT}
+    environment:
+      - PORT=${PORT}
+      - API_LOCAL_PORT=${API_LOCAL_PORT}
+      - API_HOST=${API_HOST}
+      - TYPEORM_HOST=postgres
+      - TYPEORM_CONNECTION=${TYPEORM_CONNECTION}
+      - TYPEORM_USERNAME=${TYPEORM_USERNAME}
+      - TYPEORM_PASSWORD=${TYPEORM_PASSWORD}
+      - TYPEORM_PORT=${TYPEORM_PORT}
+      - TYPEORM_LOCAL_PORT=${TYPEORM_LOCAL_PORT}
+      - TYPEORM_DATABASE=${TYPEORM_DATABASE}
